@@ -24,3 +24,23 @@ header {
   width: 660px;
   height: 34px;
 }
+
+.results {
+  margin: 10px 0 40px;
+  background: #fff;
+}
+
+.result-item {
+  margin: 10px 0;
+  padding: 20px;
+  color: #4d4d4c;
+
+  a { 
+    color: #4271ae; 
+    text-decoration: none; 
+    font-weight: bold; 
+    &:hover { text-decoration: underline; }
+  }
+  p { margin-top: 0.3em; }
+  span { color: #8e908c; }
+}

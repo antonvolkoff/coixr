@@ -1,0 +1,17 @@
+<% unless @page == 0 %>
+  <div class="results-separator">
+    Page <%= @page + 1 %>
+  </div>
+<% end %>
+
+<% results.each do |result| %>
+  <div class="results-item">
+    <a href="#"><%= result.title %></a>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae officia at minus ut reiciendis fugiat quaerat dolorum quas quisquam quia neque...</p>
+    <span class="url">http://example.com</span>
+  </div>
+<% end %>
+
+<div class="results-pagination">
+  <a href="#" id="next-page">Load next page</a>
+</div>

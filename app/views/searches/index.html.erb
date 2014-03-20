@@ -3,7 +3,12 @@
     <div class="query">
       <div id="editor">select articles</div>
     </div>
+    <%= form_tag searches_path, method: :post, id: 'search-form', remote: true do %>
+      <%= hidden_field_tag :query, 'select articles' %>
+    <% end %>
   </header>
+  <section class="results">
+  </section>
 </div>
 
 
@@ -25,7 +30,8 @@
   document.getElementById('editor').style.fontSize='14px';
 
   editor.commands.bindKey("enter", function(editor) {
-    alert("Searching for: " + editor.getValue());
+    $('input#query').val(editor.getValue());
+    $('form#search-form').submit();
   }); 
 
   editor.commands.bindKey("up", function(editor) { /* do nothing */ });

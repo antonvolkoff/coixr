@@ -11,8 +11,9 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 
-# Helpers
+# Core
 gem 'interactor-rails', '~> 1.0'
+gem 'parslet'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'

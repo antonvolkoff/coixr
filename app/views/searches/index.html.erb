@@ -15,6 +15,13 @@
 <%= javascript_include_tag "//cdn.jsdelivr.net/ace/1.1.3/min/ace.js" %>
 <%= javascript_include_tag "//cdn.jsdelivr.net/ace/1.1.3/min/ext-language_tools.js" %>
 <script>
+  var updateUrl = function() {
+    var query = $('input#query').val();
+    var page = $('input#page').val();
+    var path = "?query=" + encodeURIComponent(query) + "&page=" + page;
+    history.pushState({}, 'title', path);
+  }
+
   ace.require("ace/ext/language_tools");
 
   var editor = ace.edit("editor");
@@ -32,6 +39,7 @@
   editor.commands.bindKey("enter", function(editor) {
     $('input#query').val(editor.getValue());
     $('form#search-form').submit();
+    updateUrl();
   }); 
 
   editor.commands.bindKey("up", function(editor) { /* do nothing */ });

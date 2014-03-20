@@ -6,5 +6,6 @@ $('a#next-page').click(function(e) {
   var current_page = parseInt($('input#page').val());
   $('input#page').val(current_page + 1);
   $('form#search-form').submit();
+  updateUrl();
   return false;
 });

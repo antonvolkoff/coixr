@@ -5,8 +5,9 @@ class SearchesController < ApplicationController
   end
 
   def create
+    @page = params[:page].to_i || 0
     @results = []
-    10.times do |n|
+    (10 + @page * 10).times do |n|
       @results << Result.new("Mega article ##{n}")
     end
   end

@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/mongoid/mongoid.git
+  revision: dba1c17b1dba667e50347ab616aaf6f2e1bee094
+  specs:
+    mongoid (4.0.0.beta1)
+      activemodel (>= 4.0.0)
+      moped (~> 2.0.beta6)
+      origin (~> 2.1)
+      tzinfo (>= 0.3.37)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -28,6 +38,8 @@ GEM
     arel (4.0.2)
     atomic (1.1.16)
     blankslate (2.1.2.4)
+    bson (2.2.1)
+    bson_ext (1.5.1)
     builder (3.1.4)
     coderay (1.1.0)
     coffee-rails (4.0.1)
@@ -37,6 +49,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    connection_pool (1.2.0)
     database_cleaner (1.2.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
@@ -64,7 +77,13 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     minitest (4.7.5)
+    moped (2.0.0.beta6)
+      bson (~> 2.2)
+      connection_pool (~> 1.2)
+      optionable (~> 0.2.0)
     multi_json (1.9.0)
+    optionable (0.2.0)
+    origin (2.1.0)
     parslet (1.5.0)
       blankslate (~> 2.0)
     polyglot (0.3.4)
@@ -145,12 +164,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bson_ext
   coffee-rails (~> 4.0.0)
   database_cleaner
   factory_girl_rails
   faker
   interactor-rails (~> 1.0)
   jquery-rails
+  mongoid!
   parslet
   pry
   rails (= 4.0.3)

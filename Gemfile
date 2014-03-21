@@ -24,4 +24,5 @@ group :development, :test do
   gem 'timecop'
   gem 'pry'
   gem 'database_cleaner'
+  gem 'fabrication'
 end

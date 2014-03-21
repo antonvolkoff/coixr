@@ -29,4 +29,10 @@ class XQL::Parser < Parslet::Parser
   rule(:condition) do
     whitespace >> key >> whitespace >> str('=') >> whitespace >> value  
   end
+
+  rule(:query) do
+    whitespace >> key >> (whitespace >> str('where') >> condition).maybe
+  end
+
+  root :query
 end

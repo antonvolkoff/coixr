@@ -66,4 +66,12 @@ describe XQL::Parser do
     it { expect(subject).to parse('key = true') }
     it { expect(subject).to parse('key = "value"') }
   end
+
+  describe 'query' do
+    let(:rule) { :query }
+
+    it { expect(subject).to parse('articles where author = "John"') }
+    it { expect(subject).to parse('   art where color = "red"') }
+    it { expect(subject).to parse('articles') }
+  end
 end

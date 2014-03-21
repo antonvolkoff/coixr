@@ -3,7 +3,7 @@ require 'spec_helper'
 describe XQL::Parser do
   subject { XQL::Parser.new.send(rule) }
 
-  describe 'integer' do
+  describe 'rule integer' do
     let(:rule) { :integer }
 
     it { expect(subject).to      parse('1') }
@@ -13,7 +13,7 @@ describe XQL::Parser do
     it { expect(subject).to_not  parse('0181') }
   end
 
-  describe 'float' do
+  describe 'rule float' do
     let(:rule) { :float }
 
     it { expect(subject).to      parse('0.1') }
@@ -23,7 +23,7 @@ describe XQL::Parser do
     it { expect(subject).not_to  parse('.1') }
   end
 
-  describe 'boolean' do
+  describe 'rule boolean' do
     let(:rule) { :boolean }
 
     it { expect(subject).to      parse('true') }
@@ -31,7 +31,7 @@ describe XQL::Parser do
     it { expect(subject).not_to  parse('truefalse') }
   end
 
-  describe 'string' do
+  describe 'rule string' do
     let(:rule) { :string }
 
     it { expect(subject).to      parse('""') }
@@ -39,7 +39,7 @@ describe XQL::Parser do
     it { expect(subject).not_to  parse('"stringggg') }
   end
 
-  describe 'value' do
+  describe 'rule value' do
     let(:rule) { :value }
 
     it { expect(subject).to parse('-42') }
@@ -48,7 +48,7 @@ describe XQL::Parser do
     it { expect(subject).to parse('"Mega String"') }
   end
 
-  describe 'key' do
+  describe 'rule key' do
     let(:rule) { :key }
 
     it { expect(subject).to     parse('foobar') }
@@ -57,7 +57,7 @@ describe XQL::Parser do
     it { expect(subject).not_to parse('noequal=thing') }
   end
 
-  describe 'condition' do
+  describe 'rule condition' do
     let(:rule) { :condition }
 
     it { expect(subject).to parse('key=3.14') }
@@ -67,11 +67,31 @@ describe XQL::Parser do
     it { expect(subject).to parse('key = "value"') }
   end
 
-  describe 'query' do
+  describe 'rule query' do
     let(:rule) { :query }
 
     it { expect(subject).to parse('articles where author = "John"') }
     it { expect(subject).to parse('   art where color = "red"') }
     it { expect(subject).to parse('articles') }
+  end
+
+  describe '.parse' do
+    subject { XQL::Parser.new.parse(query) }
+
+    context 'when query is "articles"' do
+      let(:query) { 'articles' }
+
+      it { expect(subject).to eq type: 'articles' }
+    end
+
+    context 'when query is "articles where author = "John""' do
+      let(:query) { 'articles where author = "John"' }
+
+      it { expect(subject).to eq(
+        type: 'articles', 
+        condition: {
+          key: 'author', value: {
+            string: 'John'}}) }
+    end
   end
 end

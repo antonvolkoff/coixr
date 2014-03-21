@@ -13,10 +13,23 @@ class XQL::Parser < Parslet::Parser
 
   rule(:digit) { match('[0-9]') }
 
-  rule(:integer)  { str('-').maybe >> match("[1-9]") >> digit.repeat }
-  rule(:float)    { str('-').maybe >> digit.repeat(1) >> str('.') >> digit.repeat(1) }
-  rule(:boolean)  { str('true') | str('false') }
-  rule(:string)   { str('"') >> (str('"').absent? >> any).repeat >> str('"') }
+  rule(:integer)  do
+    (str('-').maybe >> match("[1-9]") >> digit.repeat).as(:integer)
+  end
+
+  rule(:float) do 
+    (str('-').maybe >> digit.repeat(1) >> str('.') >> 
+     digit.repeat(1)).as(:float)
+  end
+  rule(:boolean) do 
+    (str('true') | str('false')).as(:boolean)
+  end
+
+  rule(:string) do 
+    str('"') >> 
+    ((str('"').absent? >> any).repeat).as(:string) >> 
+    str('"')
+  end
   
   rule(:value) do 
     integer | float | boolean | string
@@ -27,11 +40,22 @@ class XQL::Parser < Parslet::Parser
   end
 
   rule(:condition) do
-    whitespace >> key >> whitespace >> str('=') >> whitespace >> value  
+    whitespace >> 
+    key.as(:key) >> 
+    whitespace >> 
+    str('=') >> 
+    whitespace >> 
+    value.as(:value)  
   end
 
   rule(:query) do
-    whitespace >> key >> (whitespace >> str('where') >> condition).maybe
+    whitespace >> 
+    key.as(:type) >> 
+    (
+      whitespace >> 
+      str('where') >> 
+      condition.as(:condition)
+    ).maybe
   end
 
   root :query

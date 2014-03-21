@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.3'
 
 gem 'sqlite3'
+gem 'mongoid', github: 'mongoid/mongoid'
+gem 'bson_ext'
 
 # Assets stuff...
 gem 'sass-rails',   '~> 4.0.0'
@@ -22,4 +24,5 @@ group :development, :test do
   gem 'timecop'
   gem 'pry'
   gem 'database_cleaner'
+  gem 'fabrication'
 end

@@ -3,35 +3,49 @@ require 'spec_helper'
 describe XQL::Parser do
   subject { XQL::Parser.new.send(rule) }
 
+  describe 'integer' do
+    let(:rule) { :integer }
+
+    it { expect(subject).to      parse('1') }
+    it { expect(subject).to      parse('-123') }
+    it { expect(subject).to      parse('120381') }
+    it { expect(subject).to      parse('181') }
+    it { expect(subject).to_not  parse('0181') }
+  end
+
+  describe 'float' do
+    let(:rule) { :float }
+
+    it { expect(subject).to      parse('0.1') }
+    it { expect(subject).to      parse('3.14159') }
+    it { expect(subject).to      parse('-0.00001') }
+    it { expect(subject).to      parse('12.3456') }
+    it { expect(subject).not_to  parse('.1') }
+  end
+
+  describe 'boolean' do
+    let(:rule) { :boolean }
+
+    it { expect(subject).to      parse('true') }
+    it { expect(subject).to      parse('false') }
+    it { expect(subject).not_to  parse('truefalse') }
+  end
+
+  describe 'string' do
+    let(:rule) { :string }
+
+    it { expect(subject).to      parse('""') }
+    it { expect(subject).to      parse('" hello World!"') }
+    it { expect(subject).not_to  parse('"stringggg') }
+  end
+
   describe 'value' do
     let(:rule) { :value }
 
-    it "parses integers" do
-      expect(subject).to      parse("1")
-      expect(subject).to      parse("-123")
-      expect(subject).to      parse("120381")
-      expect(subject).to      parse("181")
-      expect(subject).to_not  parse("0181")
-    end
-
-    it "parses floats" do
-      expect(subject).to      parse("0.1")
-      expect(subject).to      parse("3.14159")
-      expect(subject).to      parse("-0.00001")
-      expect(subject).to      parse("12.3456")
-      expect(subject).to_not  parse(".1")
-    end
-
-    it "parses booleans" do
-      expect(subject).to      parse("true")
-      expect(subject).to      parse("false")
-      expect(subject).to_not  parse("truefalse")
-    end
-
-    it 'parses strings' do
-      expect(subject).to      parse('""')
-      expect(subject).to      parse('"hello world"')
-    end
+    it { expect(subject).to parse('-42') }
+    it { expect(subject).to parse('3.14') }
+    it { expect(subject).to parse('true') }
+    it { expect(subject).to parse('"Mega String"') }
   end
 
   describe 'key' do

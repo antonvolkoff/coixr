@@ -15,7 +15,11 @@ class SearchesController < ApplicationController
       conditions[@parsed_query[:condition][:key].to_sym] = @parsed_query[:condition][:value].values[0].to_s
     end
 
-    @nodes = Node.where(conditions)
+    result = SearchWithConditions.perform(conditions: conditions)
+    @nodes = result.nodes
+    unless result.success?
+      @message = result.message
+    end
   end
 
   protected

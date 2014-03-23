@@ -4,7 +4,7 @@
       <div id="editor"><%= @query %></div>
     </div>
     <%= form_tag searches_path, method: :post, id: 'search-form', remote: true do %>
-      <%= hidden_field_tag :query, @query %>
+      <%= hidden_field_tag :query, params[:query] %>
       <%= hidden_field_tag :page, '0' %>
     <% end %>
   </header>

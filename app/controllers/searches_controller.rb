@@ -1,8 +1,5 @@
 class SearchesController < ApplicationController
-  before_filter :init_query, only: [:index]
-
-  def index 
-    @query = params[:query]
+  def index
   end
 
   def create
@@ -14,11 +11,5 @@ class SearchesController < ApplicationController
     else
       @message = result.message
     end
-  end
-
-  protected
-
-  def init_query
-    params[:query] = "articles" if params[:query].blank?
   end
 end

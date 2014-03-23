@@ -6,12 +6,12 @@ class SearchesController < ApplicationController
   end
 
   def create
-    @page = params[:page].to_i || 0
-    conditions = XQL.parse(params[:query])
+    result = Search.perform(params: params)
 
-    result = SearchWithConditions.perform(conditions: conditions)
-    @nodes = result.nodes
-    unless result.success?
+    if result.success?
+      @nodes  = result.nodes
+      @page   = params[:page].to_i || 0
+    else
       @message = result.message
     end
   end

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ParseQuery do
   let(:xql_module)  { double('XQL') }
   let(:query)       { 'search query' }
-  subject { ParseQuery.perform(query: query, xql_module: xql_module) }
+  subject { ParseQuery.perform(params: {query: query}, xql_module: xql_module) }
 
 
   context 'when parser is successful' do

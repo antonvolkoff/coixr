@@ -3,7 +3,7 @@ class ParseQuery
 
   def perform
     begin
-      conditions = xql_module.parse(context[:query])
+      conditions = xql_module.parse(params[:query])
       context[:conditions] = conditions
     rescue Exception => e
       context[:message] = 'Sorry, query is wrong'
@@ -15,5 +15,9 @@ class ParseQuery
 
   def xql_module
     context[:xql_module] || XQL
+  end
+
+  def params
+    context[:params]
   end
 end

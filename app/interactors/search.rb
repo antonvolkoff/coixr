@@ -1,5 +1,5 @@
 class Search
   include Interactor::Organizer
 
-  organize ParseQuery, SearchWithCondition
+  organize ParseQuery, SearchWithConditions
 end

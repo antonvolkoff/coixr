@@ -6,15 +6,11 @@ class SearchesController < ApplicationController
   end
 
   def create
-    @page = params[:page].to_i || 0
+    result = Search.perform(params: params)
 
-    parse_result = ParseQuery.perform(params: params)
-    if parse_result.success?
-      result = SearchWithConditions.perform(conditions: parse_result.conditions)
-      @nodes = result.nodes
-      unless result.success?
-        @message = result.message
-      end
+    if result.success?
+      @nodes  = result.nodes
+      @page   = params[:page].to_i || 0
     else
       @message = result.message
     end

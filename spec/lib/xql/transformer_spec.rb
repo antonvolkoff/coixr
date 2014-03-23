@@ -28,6 +28,11 @@ describe XQL::Transformer do
     it { expect(subject).to eq({:author => "John"}) }
   end
 
+  describe 'type' do
+    let(:tree) { {:type => "articles"} }
+    it { expect(subject).to eq(_type: 'Article')}
+  end
+
   describe 'type and condition' do
     let(:tree) { {:type => "articles", :condition => {:key => "value"}} }
     it { expect(subject).to eq({_type: "Article", key: "value"}) }

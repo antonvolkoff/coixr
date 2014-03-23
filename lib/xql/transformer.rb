@@ -9,7 +9,7 @@ class XQL::Transformer < Parslet::Transform
   end
 
   rule(type: simple(:t)) do
-    { type: String(t).classify }
+    { _type: String(t).classify }
   end
 
   rule(type: simple(:type), condition: subtree(:condition)) do

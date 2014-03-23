@@ -1,6 +1,6 @@
 $('.results-pagination').remove();
 
-$('section.results').append("<%= escape_javascript(render('results', results: @results)) %>");
+$('section.results').append("<%= escape_javascript(render('results', results: @nodes)) %>");
 
 $('a#next-page').click(function(e) {
   var current_page = parseInt($('input#page').val());

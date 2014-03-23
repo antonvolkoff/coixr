@@ -6,16 +6,18 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Article.delete_all
+
 Article.create!(
-  title: 'What is going on...',
-  url: 'http://google.com',
+  title: 'Let’s End The Search For Mobile TV',
+  url: 'http://techcrunch.com/2014/03/22/can-we-end-the-search-for-mobile-tv/',
   description: 'Test article',
-  author: 'John'
+  author: 'Tom Limongello'
 )
 
 Article.create!(
-  title: 'Out this world',
-  url: 'http://google.com',
+  title: 'A May-December Media Strategy Could Help Locally Focused Startups',
+  url: 'http://techcrunch.com/2014/03/22/the-may-december-media-strategy-a-winning-mashup-for-locally-focused-startups/',
   description: 'Test article',
-  author: 'Anton'
+  author: 'Jonathan Sills'
 )

@@ -1,6 +1,4 @@
 class SearchesController < ApplicationController
-  Result = Struct.new(:title, :author)
-
   before_filter :init_query, only: [:index]
 
   def index 
@@ -9,10 +7,8 @@ class SearchesController < ApplicationController
 
   def create
     @page = params[:page].to_i || 0
-    @results = []
-    (10 + @page * 10).times do |n|
-      @results << Result.new("Mega article ##{n}")
-    end
+    @parsed_query = XQL::Parser.new.parse(params[:query])
+    @nodes = Node.where(_type: @parsed_query[:type].to_s.classify)
   end
 
   protected

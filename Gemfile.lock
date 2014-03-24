@@ -182,6 +182,7 @@ DEPENDENCIES
   interactor-rails (~> 1.0)
   jquery-rails
   mongoid!
+  nokogiri
   parslet
   pry
   rails (= 4.0.3)

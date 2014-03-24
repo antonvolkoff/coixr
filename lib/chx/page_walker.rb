@@ -21,9 +21,10 @@ class Chx::PageWalker
           article_attributes[:title]       = inspector.title
           article_attributes[:url]         = inspector.url
           article_attributes[:description] = inspector.description
-          article_attributes[:author]      = inspector.author
+          # article_attributes[:author]      = inspector.author
 
-          puts "Article attributes: #{article_attributes.inspect}"
+          Article.create!(article_attributes)
+          puts "Added article"
         end
       end
     end

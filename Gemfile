@@ -16,6 +16,7 @@ gem 'turbolinks'
 # Core
 gem 'interactor-rails', '~> 1.0'
 gem 'parslet'
+gem 'draper'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'

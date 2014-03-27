@@ -6,7 +6,7 @@ class SearchesController < ApplicationController
     result = Search.perform(params: params)
 
     if result.success?
-      @nodes  = result.nodes
+      @nodes  = NodeDecorator.decorate_collection(result.nodes)
       @page   = params[:page].to_i || 0
     else
       @message = result.message

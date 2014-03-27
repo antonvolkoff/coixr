@@ -6,9 +6,9 @@
 
 <% results.each do |result| %>
   <div class="results-item">
-    <%= link_to result.title, result.url %>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae officia at minus ut reiciendis fugiat quaerat dolorum quas quisquam quia neque...</p>
-    <span class="url">http://example.com</span>
+    <%= result.link %>
+    <p><%= result.description %></p>
+    <span class="url"><%= result.host %></span>
   </div>
 <% end %>
 

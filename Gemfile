@@ -18,6 +18,7 @@ gem 'interactor-rails', '~> 1.0'
 gem 'parslet'
 gem 'anemone'
 gem 'nokogiri'
+gem 'draper'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'

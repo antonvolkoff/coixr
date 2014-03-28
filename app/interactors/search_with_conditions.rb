@@ -4,7 +4,7 @@ class SearchWithConditions
   def perform
     nodes = node_class.where(conditions).to_a
 
-    context[:nodes] = nodes
+    context[:nodes] = Draper::CollectionDecorator.decorate(nodes)
     if nodes.empty?
       context[:message] = "Sorry, nothing is found"
       fail!

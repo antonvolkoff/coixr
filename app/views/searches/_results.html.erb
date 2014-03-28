@@ -7,8 +7,11 @@
 <% results.each do |result| %>
   <div class="results-item">
     <%= result.link %>
-    <p><%= result.description %></p>
-    <span class="url"><%= result.host %></span>
+    <div class="meta">
+      <% result.queries.each do |query| %>
+        <%= result.send(query) %>
+      <% end %>
+    </div>
   </div>
 <% end %>
 

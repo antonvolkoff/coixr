@@ -1,14 +1,17 @@
 <div class="container">
   <header>
     <div class="query">
-      <div id="editor"><%= @query %></div>
+      <div id="editor"><%= params[:query] %></div>
     </div>
     <%= form_tag searches_path, method: :post, id: 'search-form', remote: true do %>
       <%= hidden_field_tag :query, params[:query] %>
       <%= hidden_field_tag :page, '0' %>
     <% end %>
   </header>
-  <section class="results"></section>
+  <section class="results">
+    <%= render 'message', message: @message if @message %>
+    <%= render 'results', results: @nodes if @nodes %>
+  </section>
 </div>
 
 

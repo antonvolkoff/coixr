@@ -6,6 +6,18 @@ class Chx::Inspector
     @doc  = Nokogiri::HTML(page.body)
   end
 
+  def type
+    meta_by_propery('og:type').first
+  end
+
+  def article?
+    type == 'article'
+  end
+
+  def profile?
+    type == 'profile'
+  end
+
   def title
     meta_by_propery('og:title').first
   end
@@ -14,16 +26,24 @@ class Chx::Inspector
     meta_by_propery('og:description').first
   end
 
+  def author
+    meta_by_propery('og:author').first
+  end
+
   def url
     page.url.to_s
   end
 
-  def type
-    meta_by_propery('og:type').first
+  def username
+    meta_by_propery('profile:username').first
   end
 
-  def article?
-    type == 'article'
+  def first_name
+    meta_by_propery('profile:username').first
+  end
+
+  def last_name
+    meta_by_propery('profile:last_name').first
   end
 
   protected

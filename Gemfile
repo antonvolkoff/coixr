@@ -16,6 +16,8 @@ gem 'turbolinks'
 # Core
 gem 'interactor-rails', '~> 1.0'
 gem 'parslet'
+gem 'anemone'
+gem 'nokogiri'
 gem 'draper'
 
 group :development, :test do

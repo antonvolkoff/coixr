@@ -34,6 +34,7 @@ header {
   margin: 10px 0;
   padding: 20px;
   color: #4d4d4c;
+  border-bottom: 1px solid #e4e4e4;
 
   a { 
     color: #4271ae; 
@@ -43,6 +44,23 @@ header {
   }
   p { margin-top: 0.3em; }
   span { color: #8e908c; }
+
+  .meta {
+    padding: 5px 0;
+
+    a {
+      display: inline-block;
+      background: #333;
+      color: #fff;
+      font-size: 13px;
+      padding: 4px;
+      text-decoration: none;
+
+      &:hover {
+        background: #666;
+      }
+    }
+  }
 }
 
 .results-error {

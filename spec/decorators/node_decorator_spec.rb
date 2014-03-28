@@ -4,6 +4,10 @@ describe NodeDecorator do
   let(:node) { double('node') }
   subject { NodeDecorator.new(node).send(method_name) }
 
+  describe '.id' do
+    pending
+  end
+
   describe '.link' do
     let(:method_name) { :link }
     before do

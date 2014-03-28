@@ -27,7 +27,7 @@ class Chx::Inspector
   end
 
   def author
-    meta_by_propery('og:author').first
+    meta_by_propery('article:author').first
   end
 
   def url

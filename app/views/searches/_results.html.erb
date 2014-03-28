@@ -8,7 +8,7 @@
   <div class="results-item">
     <%= result.link %>
     <div class="meta">
-      <% result.meta.each do |query| %>
+      <% result.queries.each do |query| %>
         <%= result.send(query) %>
       <% end %>
     </div>

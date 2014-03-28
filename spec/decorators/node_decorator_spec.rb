@@ -4,10 +4,6 @@ describe NodeDecorator do
   let(:node) { double('node') }
   subject { NodeDecorator.new(node).send(method_name) }
 
-  describe '.id' do
-    pending
-  end
-
   describe '.link' do
     let(:method_name) { :link }
     before do
@@ -24,6 +20,6 @@ describe NodeDecorator do
       allow(node).to receive(:url).and_return('http://example.com/article/1')
     end
 
-    it { expect(subject).to eq('http://example.com') }
+    it { expect(subject).to eq('example.com') }
   end
 end

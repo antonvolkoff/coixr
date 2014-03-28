@@ -6,7 +6,6 @@ class NodeDecorator < Draper::Decorator
   end
 
   def host
-    uri = URI(object.url)
-    "#{uri.scheme}://#{uri.host}"
+    URI(object.url).host
   end
 end

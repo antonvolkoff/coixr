@@ -1,9 +1,11 @@
 /*! Typebase.less v0.1.0 | MIT License */
 /* Setup */
+@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro);
+
 html {
   /* Change default typefaces here */
   font-family: sans-serif;
-  font-size: 117.5%;
+  font-size: 110%;
   -webkit-font-smoothing: antialiased;
 }
 /* Copy & Lists */

@@ -1,4 +1,7 @@
 <div class="container">
+  <div class="logo">
+    <h2><%= link_to "Leanear", root_url %></h2>
+  </div>
   <header>
     <div class="query">
       <div id="editor"><%= params[:query] %></div>
@@ -7,15 +10,24 @@
       <%= hidden_field_tag :query, params[:query] %>
     <% end %>
   </header>
-  <section class="results">
-    <%= render 'message', message: @message if @message %>
-    <%= render 'results', results: @nodes if @nodes %>
-  </section>
-  <div class="results-pagination">
-    <% if @nodes && !@nodes.last_page? %>
-      <%= link_to "Next Page", root_path(query: params[:query], page: @nodes.current_page + 1), remote: true %>
-    <% end %>
-  </div>
+  <% if params[:query] %>
+    <section class="results">
+      <%= render 'message', message: @message if @message %>
+      <%= render 'results', results: @nodes if @nodes %>
+    </section>
+    <div class="results-pagination">
+      <% if @nodes && !@nodes.last_page? %>
+        <%= link_to "Next Page", root_path(query: params[:query], page: @nodes.current_page + 1), remote: true %>
+      <% end %>
+    </div>
+  <% else %>
+    <section class="about">
+      <p>
+        This is a <strong>prototype</strong> of a search engine.
+        No Magic. What you query is what you get.
+      </p>
+    </section>
+  <% end %>
 </div>
 
 

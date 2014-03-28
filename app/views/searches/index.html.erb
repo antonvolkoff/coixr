@@ -3,15 +3,19 @@
     <div class="query">
       <div id="editor"><%= params[:query] %></div>
     </div>
-    <%= form_tag searches_path, method: :post, id: 'search-form', remote: true do %>
+    <%= form_tag root_path, method: :get, id: 'search-form' do %>
       <%= hidden_field_tag :query, params[:query] %>
-      <%= hidden_field_tag :page, '0' %>
     <% end %>
   </header>
   <section class="results">
     <%= render 'message', message: @message if @message %>
     <%= render 'results', results: @nodes if @nodes %>
   </section>
+  <div class="results-pagination">
+    <% if @nodes && !@nodes.last_page? %>
+      <%= link_to "Next Page", root_path(query: params[:query], page: @nodes.current_page + 1), remote: true %>
+    <% end %>
+  </div>
 </div>
 
 
@@ -20,8 +24,7 @@
 <script>
   var updateUrl = function() {
     var query = $('input#query').val();
-    var page = $('input#page').val();
-    var path = "?query=" + encodeURIComponent(query) + "&page=" + page;
+    var path = "?query=" + encodeURIComponent(query);
     history.pushState({}, 'title', path);
   }
 
@@ -47,4 +50,12 @@
 
   editor.commands.bindKey("up", function(editor) { /* do nothing */ });
   editor.commands.bindKey("down", function(editor) { /* do nothing */ });
+
+  $('a#next-page').click(function(e) {
+    var current_page = parseInt($('input#page').val());
+    $('input#page').val(current_page + 1);
+    $('form#search-form').submit();
+    updateUrl();
+    return false;
+  });
 </script>

@@ -19,6 +19,7 @@ gem 'parslet'
 gem 'anemone'
 gem 'nokogiri'
 gem 'draper'
+gem 'kaminari'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'

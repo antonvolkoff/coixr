@@ -2,9 +2,9 @@ class SearchWithConditions
   include Interactor
 
   def perform
-    nodes = node_class.where(conditions).to_a
+    nodes = node_class.where(conditions).page(page_num)
 
-    context[:nodes] = Draper::CollectionDecorator.decorate(nodes)
+    context[:nodes] = NodesDecorator.decorate(nodes)
     if nodes.empty?
       context[:message] = "Sorry, nothing is found"
       fail!
@@ -19,5 +19,9 @@ class SearchWithConditions
 
   def node_class
     context[:node_class] || Node
+  end
+
+  def page_num
+    context[:params][:page] || 1
   end
 end

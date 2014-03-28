@@ -6,9 +6,9 @@ describe SearchesController do
     it { expect(subject).to render_template('searches/index') }
   end
 
-  describe '#create' do
+  describe '#index' do
     let(:result) { double('result', success?: success, nodes: nodes, message: message) }
-    subject { post :create, :query => 'query', page: 0, format: :js }
+    subject { get :index, :query => 'query', page: 1, format: :js }
     before { allow(Search).to receive(:perform).and_return(result) }
 
     context 'when search is success' do

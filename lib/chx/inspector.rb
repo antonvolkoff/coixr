@@ -14,10 +14,6 @@ class Chx::Inspector
     meta_by_propery('og:description').first
   end
 
-  # def author
-  #   meta_by_propery('article:author').first
-  # end
-
   def url
     page.url.to_s
   end

@@ -38,7 +38,7 @@ class Chx::PageWalker
     if inspector.profile?
       profile_attributes = {}
       profile_attributes[:title]        = inspector.title
-      profile_attributes[:url]           = inspector.url
+      profile_attributes[:url]          = inspector.url
       profile_attributes[:description]  = inspector.description
       profile_attributes[:username]     = inspector.username
       profile_attributes[:first_name]   = inspector.first_name

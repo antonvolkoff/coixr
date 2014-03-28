@@ -39,7 +39,7 @@ class Chx::Inspector
   end
 
   def first_name
-    meta_by_propery('profile:username').first
+    meta_by_propery('profile:first_name').first
   end
 
   def last_name

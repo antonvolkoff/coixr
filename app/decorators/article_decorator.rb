@@ -1,4 +1,4 @@
-class NodeDecorator < Draper::Decorator
+class ArticleDecorator < Draper::Decorator
   delegate :description
 
   def id_query

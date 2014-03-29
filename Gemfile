@@ -23,3 +23,7 @@ group :development, :test do
   gem 'pry'
   gem 'database_cleaner'
 end
+
+group :production do
+  gem 'rails_12factor'
+end

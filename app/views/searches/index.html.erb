@@ -1,6 +1,10 @@
 <div class="container">
   <div class="logo">
-    <h2><%= link_to "Leanear", root_url %></h2>
+    <h2>
+      <%= link_to root_url do %>
+        Leanear
+      <% end %>
+    </h2>
   </div>
   <header>
     <div class="query">
@@ -15,17 +19,60 @@
       <%= render 'message', message: @message if @message %>
       <%= render 'results', results: @nodes if @nodes %>
     </section>
-    <div class="results-pagination">
-      <% if @nodes && !@nodes.last_page? %>
-        <%= link_to "Next Page", root_path(query: params[:query], page: @nodes.current_page + 1), remote: true %>
-      <% end %>
-    </div>
   <% else %>
     <section class="about">
       <p>
-        This is a <strong>prototype</strong> of a search engine.
+        This is a <strong>minimalistic prototype</strong> of a search engine.
         No Magic. What you query is what you get.
       </p>
+
+      <h3>Usage:</h3>
+      <p><strong>query ></strong> [type] [where [condition]]</p>
+      <dl>
+        <dt><strong>type:</strong></dt>
+          <dd>sites, profiles, articles</dd>
+        <dt><strong>conditions:</strong></dt>
+          <dd>id = "ID"</dd>
+          <dd>author = "AUTHOR"</dd>
+          <dd>etc.</dd>
+      </dl>
+
+      <h3>Examples:</h3>
+      <dl class="examples">
+        <dt>All articles:</dt>
+          <dd>
+            <%= link_to root_url(query: 'articles') do %>
+              <code>articles</code>
+            <% end %>
+          </dd>
+        <dt>All profiles:</dt>
+          <dd>
+            <%= link_to root_url(query: 'profiles') do %>
+              <code>profiles</code>
+            <% end %>
+          </dd>
+        <dt>Article by id</dt>
+          <% article = Article.last %>
+          <dd>
+            <%= link_to root_url(query: "articles where _id = \"#{article.id}\"") do %>
+              <code>articles where _id = "<%= article.id %>"</code>
+            <% end %>
+          </dd>
+      </dl>
+
+      <h3>Roadmap:</h3>
+
+      <ul>
+        <li>Add multiple conditions to query (Ex. articles where author = "John" and published = "yesterday")</li>
+        <li>Add ordering to query (Ex. articles order by title)</li>
+        <li>Crawle 500k pages</li>
+        <li>Add other type of content (Ex. repository, video, book)</li>
+      </ul>
+
+      <h3>Notes:</h3>
+
+      <p>If you have any question please contact me by <%= mail_to "choixer@gmail.com", 'email' %>.</p>
+      <p>(c) Anton Volkov 2014</p>
     </section>
   <% end %>
 </div>

@@ -8,3 +8,8 @@
     </div>
   </div>
 <% end %>
+<div class="results-pagination">
+  <% if @nodes && !@nodes.last_page? %>
+    <%= link_to "Next Page", root_path(query: params[:query], page: @nodes.current_page + 1), remote: true %>
+  <% end %>
+</div>

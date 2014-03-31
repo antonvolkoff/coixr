@@ -1,0 +1,15 @@
+<% results.each do |result| %>
+  <div class="results-item">
+    <%= result.link %>
+    <div class="meta">
+      <% result.queries.each do |query| %>
+        <%= result.send(query) %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+<div class="results-pagination">
+  <% if @nodes && !@nodes.last_page? %>
+    <%= link_to "Next Page", root_path(query: params[:query], page: @nodes.current_page + 1), remote: true %>
+  <% end %>
+</div>

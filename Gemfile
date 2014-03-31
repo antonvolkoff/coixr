@@ -4,6 +4,9 @@ gem 'rails', '4.0.3'
 
 gem 'sqlite3'
 gem 'thread_safe', '0.2.0'
+gem 'mongoid', github: 'mongoid/mongoid'
+gem 'bson_ext'
+gem 'puma'
 
 # Assets stuff...
 gem 'sass-rails',   '~> 4.0.0'
@@ -12,8 +15,13 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 
-# Helpers
+# Core
 gem 'interactor-rails', '~> 1.0'
+gem 'parslet'
+gem 'anemone'
+gem 'nokogiri'
+gem 'draper'
+gem 'kaminari'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
@@ -22,8 +30,13 @@ group :development, :test do
   gem 'timecop'
   gem 'pry'
   gem 'database_cleaner'
+  gem 'fabrication'
 end
 
 group :production do
   gem 'rails_12factor'
+end
+
+group :development do
+  gem 'capistrano-rails', '~> 1.0.0'
 end

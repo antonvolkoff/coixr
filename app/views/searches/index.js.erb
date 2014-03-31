@@ -1,0 +1,7 @@
+<% if @message %>
+  $('section.results').html(
+    "<%= escape_javascript(render('message', message: @message)) %>");  
+<% else %>
+  $('.results-pagination').remove();
+  $('section.results').append("<%= escape_javascript(render('results', results: @nodes)) %>");
+<% end %>

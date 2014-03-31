@@ -2,8 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.0.3'
 
-gem 'sqlite3'
-gem 'thread_safe', '0.2.0'
 gem 'mongoid', github: 'mongoid/mongoid'
 gem 'bson_ext'
 gem 'puma'
@@ -38,5 +36,9 @@ group :production do
 end
 
 group :development do
+  gem 'capistrano', '~> 3.1'
   gem 'capistrano-rails', '~> 1.0.0'
+  gem 'capistrano3-puma'
+  gem 'capistrano-bundler', '~> 1.1.2'
+  gem 'capistrano-rbenv', '~> 2.0'
 end

@@ -6,7 +6,7 @@ describe ArticleDecorator do
 
   describe '.queries' do
     let(:method_name) { :queries }
-    it { expect(subject).to eq([:id, :author]) }
+    it { expect(subject).to eq([:id, :site, :author]) }
   end
 
   describe '.id' do

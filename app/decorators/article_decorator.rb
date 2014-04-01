@@ -1,6 +1,6 @@
 class ArticleDecorator < NodeDecorator
   def queries
-    [:id, :author]
+    [:id, :site, :author]
   end
 
   def id

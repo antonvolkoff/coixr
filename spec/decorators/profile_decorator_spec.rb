@@ -6,7 +6,7 @@ describe ProfileDecorator do
 
   describe '.queries' do
     let(:method_name) { :queries }
-    it { expect(subject).to eq([:id, :articles]) }
+    it { expect(subject).to eq([:id, :site, :articles]) }
   end
 
   describe '.id' do

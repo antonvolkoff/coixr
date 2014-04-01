@@ -1,6 +1,6 @@
 class ProfileDecorator < NodeDecorator
   def queries
-    [:id, :articles]
+    [:id, :site, :articles]
   end
   
   def id

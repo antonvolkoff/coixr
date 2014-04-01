@@ -8,4 +8,8 @@ class NodeDecorator < Draper::Decorator
   def host
     URI(object.url).host
   end
+
+  def site
+    h.link_to 'site', h.root_url(query: "sites where _id = \"#{object.site_id}\"")
+  end
 end

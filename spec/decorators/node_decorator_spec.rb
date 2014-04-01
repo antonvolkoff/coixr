@@ -22,4 +22,10 @@ describe NodeDecorator do
 
     it { expect(subject).to eq('example.com') }
   end
+
+  describe '.site' do
+    let(:method_name) { :site }
+    before { allow(node).to receive(:site_id).and_return('SITE_ID') }
+    it { expect(subject).to eq("<a href=\"http://test.host/?query=sites+where+_id+%3D+%22SITE_ID%22\">site</a>") }
+  end
 end

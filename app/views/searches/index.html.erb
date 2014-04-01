@@ -2,7 +2,7 @@
   <div class="logo">
     <h2>
       <%= link_to root_url do %>
-        Leanear
+        Coixr
       <% end %>
     </h2>
   </div>
@@ -102,9 +102,11 @@
   document.getElementById('editor').style.fontSize='14px';
 
   editor.commands.bindKey("enter", function(editor) {
-    $('input#query').val(editor.getValue());
-    $('form#search-form').submit();
-    updateUrl();
+    if (editor.getValue() != "") {
+      $('input#query').val(editor.getValue());
+      $('form#search-form').submit();
+      updateUrl();
+    };
   }); 
 
   editor.commands.bindKey("up", function(editor) { /* do nothing */ });

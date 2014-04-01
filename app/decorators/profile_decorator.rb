@@ -1,6 +1,6 @@
 class ProfileDecorator < NodeDecorator
   def queries
-    [:id, :articles]
+    [:id, :site, :articles]
   end
   
   def id
@@ -8,6 +8,6 @@ class ProfileDecorator < NodeDecorator
   end
 
   def articles
-    h.link_to "articles", h.root_url(query: "articles where author = \"#{object.url}\"")
+    h.link_to "articles", h.root_url(query: "articles where author_id = \"#{object.id}\"")
   end
 end

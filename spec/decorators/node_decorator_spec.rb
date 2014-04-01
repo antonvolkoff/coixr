@@ -11,7 +11,7 @@ describe NodeDecorator do
       allow(node).to receive(:url).and_return('http://example.com')
     end
 
-    it { expect(subject).to eq("<a href=\"http://example.com\">Title</a>") }
+    it { expect(subject).to eq("<a href=\"http://example.com\" target=\"_blank\">Title</a>") }
   end
 
   describe '.host' do
@@ -21,5 +21,11 @@ describe NodeDecorator do
     end
 
     it { expect(subject).to eq('example.com') }
+  end
+
+  describe '.site' do
+    let(:method_name) { :site }
+    before { allow(node).to receive(:site_id).and_return('SITE_ID') }
+    it { expect(subject).to eq("<a href=\"http://test.host/?query=sites+where+_id+%3D+%22SITE_ID%22\">site</a>") }
   end
 end

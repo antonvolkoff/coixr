@@ -4,13 +4,15 @@ describe SearchWithConditions do
   let(:node_class) { double('Node') }
   let(:conditions) { {_type: 'Test'} }
   let(:params)     { {page: 1} }
+  let(:query)      { double('query') }
   let(:records)    { double('records') }
   subject do 
     SearchWithConditions.perform(conditions: conditions, node_class: node_class,
       params: params)
   end
-  before do 
-    allow(node_class).to receive(:where).with(conditions).and_return(records)
+  before do
+    allow(node_class).to receive(:where).with(conditions).and_return(query)
+    allow(query).to receive(:desc).with(:created_at).and_return(records)
     allow(records).to receive(:page).with(1).and_return(nodes)
   end
 

@@ -11,7 +11,7 @@ describe NodeDecorator do
       allow(node).to receive(:url).and_return('http://example.com')
     end
 
-    it { expect(subject).to eq("<a href=\"http://example.com\">Title</a>") }
+    it { expect(subject).to eq("<a href=\"http://example.com\" target=\"_blank\">Title</a>") }
   end
 
   describe '.host' do

@@ -2,7 +2,7 @@ class NodeDecorator < Draper::Decorator
   delegate :description
 
   def link
-    h.link_to object.title, object.url
+    h.link_to object.title, object.url, target: '_blank'
   end
 
   def host

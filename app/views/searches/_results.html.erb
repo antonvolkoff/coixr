@@ -1,7 +1,9 @@
 <% results.each do |result| %>
   <div class="results-item">
     <%= result.link %>
+    <p><%= result.description %></p>
     <div class="meta">
+      <span>Queries:</span>
       <% result.queries.each do |query| %>
         <%= result.send(query) %>
       <% end %>

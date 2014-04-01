@@ -17,7 +17,7 @@ describe ProfileDecorator do
 
   describe '.articles' do
     let(:method_name) { :articles }
-    before { allow(profile).to receive(:url).and_return('URL') }
-    it { expect(subject).to eq("<a href=\"http://test.host/?query=articles+where+author+%3D+%22URL%22\">articles</a>")}
+    before { allow(profile).to receive(:id).and_return('ID') }
+    it { expect(subject).to eq("<a href=\"http://test.host/?query=articles+where+author_id+%3D+%22ID%22\">articles</a>")}
   end
 end

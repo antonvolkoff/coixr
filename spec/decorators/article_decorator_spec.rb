@@ -17,7 +17,14 @@ describe ArticleDecorator do
 
   describe '.author' do
     let(:method_name) { :author }
-    before { allow(article).to receive(:author).and_return('AUTHOR') }
-    it { expect(subject).to eq("<a href=\"http://test.host/?query=profiles+where+url+%3D+%22AUTHOR%22\">author</a>") }
+    context 'when author exists' do
+      before { allow(article).to receive(:author_id).and_return('AUTHOR') }
+      it { expect(subject).to eq("<a href=\"http://test.host/?query=profiles+where+_id+%3D+%22AUTHOR%22\">author</a>") }
+    end
+
+    context 'when author does not exist' do
+      before { allow(article).to receive(:author_id).and_return(nil) }
+      it { expect(subject).to eq(nil) }
+    end
   end
 end

@@ -30,6 +30,14 @@ class Chx::Inspector
     meta_by_propery('article:author').first
   end
 
+  def category
+    doc.css("a.post-item-collection").try(:first).try(:text)
+  end
+
+  def published_time
+    meta_by_propery('article:published_time').first
+  end
+
   def url
     page.url.to_s
   end

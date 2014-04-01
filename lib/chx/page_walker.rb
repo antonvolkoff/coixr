@@ -32,7 +32,9 @@ class Chx::PageWalker
       article_attributes[:site_id]     = site.id
       article_attributes[:site_title]  = site.title
 
-      article_attributes[:author_url]  = inspector.author_url
+      article_attributes[:author_url]     = inspector.author_url
+      article_attributes[:category]       = inspector.category
+      article_attributes[:published_at] = Time.at(inspector.published_time.to_i)
 
       profile = Profile.where(url: inspector.author_url).first
       unless profile.nil?

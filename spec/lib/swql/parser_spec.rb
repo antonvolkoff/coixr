@@ -82,21 +82,152 @@ describe SWQL::Parser do
   end
 
   describe '.parse' do
-    subject { XQL::Parser.new.parse(query) }
+    subject { SWQL::Parser.new.parse(query) }
 
-    context 'when query is "article"' do
+    context 'when query: article' do
       let(:query) { 'article' }
+      let(:result) do
+        { subject: 'article', messages: [] }
+      end
 
-      it { expect(subject).to eq type: 'article' }
+      it { expect(subject).to eq(result) }
     end
 
-    # context 'when query is "articles where author = "John""' do
-    #   let(:query) { 'articles where author = "John"' }
+    context 'when query: article title: "Life"' do
+      let(:query) { 'article title: "Life"' }
+      let(:result) do
+        {
+          subject: 'article', 
+          messages: [
+            { 
+              predicate: 'title', 
+              object: { string: "Life" } 
+            }
+          ]
+        }
+      end
 
-    #   it { expect(subject).to eq(
-    #     type: 'articles', 
-    #     condition: {
-    #       key: 'author', value: {
-    #         string: 'John'}}) }
-    # end
+      it { expect(subject).to eq(result)}
+    end
+
+    context 'when query: article title: "Life" category_name: "Tech"' do
+      let(:query) { 'article title: "Life" category_name: "Tech"' }
+      let(:result) do
+        {
+          subject: 'article',
+          messages: [
+            {
+              predicate: 'title',
+              object: { string: "Life" }
+            },
+            {
+              predicate: 'category_name',
+              object: { string: "Tech" }
+            }
+          ]
+        }
+      end
+
+      it { expect(subject).to eq(result) }
+    end
+
+    context 'when query: article title: "Life" category: category name: "Tech"' do
+      let(:query) { 'article title: "Life" category: category name: "Tech"' }
+      let(:result) do
+        {
+          subject: 'article',
+          messages: [
+            {
+              predicate: 'title',
+              object: { string: "Life" }
+            },
+            {
+              predicate: 'category',
+              object: { 
+                subject: 'category',
+                messages: [
+                  {
+                    predicate: 'name',
+                    object: { string: "Tech" }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      end
+
+      it { expect(subject).to eq(result) }
+    end
+
+    context 'when query: article title: "Life" category: category name: "Tech" sub: "One"' do
+      let(:query) { 'article title: "Life" category: category name: "Tech" sub: "One"' }
+      let(:result) do
+        {
+          subject: 'article',
+          messages: [
+            {
+              predicate: 'title',
+              object: { string: "Life" }
+            },
+            {
+              predicate: 'category',
+              object: { 
+                subject: 'category',
+                messages: [
+                  {
+                    predicate: 'name',
+                    object: { string: "Tech" }
+                  },
+                  {
+                    predicate: 'sub',
+                    object: { string: "One" }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      end
+
+      it { expect(subject).to eq(result) }
+    end
+
+    context 'when query: article title: "Life" category: (category name: "Tech" sub: "One") subject: "Two"' do
+      let(:query) { 'article title: "Life" category: (category name: "Tech" sub: "One") subject: "Two"' }
+      let(:result) do
+        {
+          subject: 'article',
+          messages: [
+            {
+              predicate: 'title',
+              object: { string: "Life" }
+            },
+            {
+              predicate: 'category',
+              object: { 
+                subject: 'category',
+                messages: [
+                  {
+                    predicate: 'name',
+                    object: { string: "Tech" }
+                  },
+                  {
+                    predicate: 'sub',
+                    object: { string: "One" }
+                  }
+                ]
+              }
+            },
+            {
+              predicate: 'subject',
+              object: { string: "Two" }
+            }
+          ]
+        }
+      end
+
+      it { expect(subject).to eq(result) }
+    end
+  end
 end

@@ -35,7 +35,7 @@ class SWQL::Parser < Parslet::Parser
 
   rule(:triple) do
     whitespace >> str('(').maybe >> whitespace >> 
-    key.as(:subject) >> whitespace >> (message).repeat.maybe >>
+    key.as(:subject) >> whitespace >> (message).repeat.as(:messages).maybe >>
     whitespace >> str(')').maybe >> whitespace
   end
 

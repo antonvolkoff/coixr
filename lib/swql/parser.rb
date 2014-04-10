@@ -1,7 +1,6 @@
-class XQL::Parser < Parslet::Parser
+class SWQL::Parser < Parslet::Parser
   rule(:space)      { match["\t "] }
   rule(:whitespace) { space.repeat }
-
   rule(:digit) { match('[0-9]') }
 
   rule(:integer)  do
@@ -27,27 +26,18 @@ class XQL::Parser < Parslet::Parser
   end
 
   rule(:key) do 
-    (match["\\[\\]=."].absent? >> space.absent? >> any).repeat(1)
+    (match["\\[\\]=:."].absent? >> space.absent? >> any).repeat(1)
   end
 
-  rule(:condition) do
-    whitespace >> 
-    key.as(:key) >> 
-    whitespace >> 
-    str('=') >> 
-    whitespace >> 
-    value.as(:value)  
+  rule(:message) do
+    whitespace >> key.as(:predicate) >> str(':') >> whitespace >> (value | triple).as(:object)
   end
 
-  rule(:query) do
-    whitespace >> 
-    key.as(:type) >> 
-    (
-      whitespace >> 
-      str('where') >> 
-      condition.as(:condition)
-    ).maybe
+  rule(:triple) do
+    whitespace >> str('(').maybe >> whitespace >> 
+    key.as(:subject) >> whitespace >> (message).repeat.maybe >>
+    whitespace >> str(')').maybe >> whitespace
   end
 
-  root :query
+  root :triple
 end

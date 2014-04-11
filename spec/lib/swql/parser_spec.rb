@@ -143,15 +143,17 @@ describe SWQL::Parser do
             },
             {
               predicate: 'category',
-              object: { 
-                subject: 'category',
-                messages: [
-                  {
-                    predicate: 'name',
-                    object: { string: "Tech" }
-                  }
-                ]
-              }
+              object: {
+                triple: { 
+                  subject: 'category',
+                  messages: [
+                    {
+                      predicate: 'name',
+                      object: { string: "Tech" }
+                    }
+                  ]
+                } 
+              } 
             }
           ]
         }
@@ -172,18 +174,20 @@ describe SWQL::Parser do
             },
             {
               predicate: 'category',
-              object: { 
-                subject: 'category',
-                messages: [
-                  {
-                    predicate: 'name',
-                    object: { string: "Tech" }
-                  },
-                  {
-                    predicate: 'sub',
-                    object: { string: "One" }
-                  }
-                ]
+              object: {
+                triple: { 
+                    subject: 'category',
+                    messages: [
+                      {
+                        predicate: 'name',
+                        object: { string: "Tech" }
+                      },
+                      {
+                        predicate: 'sub',
+                        object: { string: "One" }
+                      }
+                    ]
+                }
               }
             }
           ]
@@ -194,7 +198,7 @@ describe SWQL::Parser do
     end
 
     context 'when query: article title: "Life" category: (category name: "Tech" sub: "One") subject: "Two"' do
-      let(:query) { 'article title: "Life" category: (category name: "Tech" sub: "One") subject: "Two"' }
+      let(:query) { 'article title: "Life" category: (category name: "Tech" sub: "One") test: "Two"' }
       let(:result) do
         {
           subject: 'article',
@@ -205,22 +209,24 @@ describe SWQL::Parser do
             },
             {
               predicate: 'category',
-              object: { 
-                subject: 'category',
-                messages: [
-                  {
-                    predicate: 'name',
-                    object: { string: "Tech" }
-                  },
-                  {
-                    predicate: 'sub',
-                    object: { string: "One" }
-                  }
-                ]
-              }
+              object: {
+                triple: { 
+                  subject: 'category',
+                  messages: [
+                    {
+                      predicate: 'name',
+                      object: { string: "Tech" }
+                    },
+                    {
+                      predicate: 'sub',
+                      object: { string: "One" }
+                    }
+                  ]
+                } 
+              } 
             },
             {
-              predicate: 'subject',
+              predicate: 'test',
               object: { string: "Two" }
             }
           ]

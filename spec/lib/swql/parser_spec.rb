@@ -87,7 +87,7 @@ describe SWQL::Parser do
     context 'when query: article' do
       let(:query) { 'article' }
       let(:result) do
-        { subject: 'article', messages: [] }
+        { triple: { subject: 'article', messages: [] } }
       end
 
       it { expect(subject).to eq(result) }
@@ -96,14 +96,15 @@ describe SWQL::Parser do
     context 'when query: article title: "Life"' do
       let(:query) { 'article title: "Life"' }
       let(:result) do
-        {
-          subject: 'article', 
-          messages: [
-            { 
-              predicate: 'title', 
-              object: { string: "Life" } 
-            }
-          ]
+        { triple: {
+            subject: 'article', 
+            messages: [
+              { 
+                predicate: 'title', 
+                object: { string: "Life" } 
+              }
+            ]
+          }
         }
       end
 
@@ -113,18 +114,19 @@ describe SWQL::Parser do
     context 'when query: article title: "Life" category_name: "Tech"' do
       let(:query) { 'article title: "Life" category_name: "Tech"' }
       let(:result) do
-        {
-          subject: 'article',
-          messages: [
-            {
-              predicate: 'title',
-              object: { string: "Life" }
-            },
-            {
-              predicate: 'category_name',
-              object: { string: "Tech" }
-            }
-          ]
+        { triple: {
+            subject: 'article',
+            messages: [
+              {
+                predicate: 'title',
+                object: { string: "Life" }
+              },
+              {
+                predicate: 'category_name',
+                object: { string: "Tech" }
+              }
+            ]
+          }
         }
       end
 
@@ -134,28 +136,29 @@ describe SWQL::Parser do
     context 'when query: article title: "Life" category: category name: "Tech"' do
       let(:query) { 'article title: "Life" category: category name: "Tech"' }
       let(:result) do
-        {
-          subject: 'article',
-          messages: [
-            {
-              predicate: 'title',
-              object: { string: "Life" }
-            },
-            {
-              predicate: 'category',
-              object: {
-                triple: { 
-                  subject: 'category',
-                  messages: [
-                    {
-                      predicate: 'name',
-                      object: { string: "Tech" }
-                    }
-                  ]
+        { triple: {
+            subject: 'article',
+            messages: [
+              {
+                predicate: 'title',
+                object: { string: "Life" }
+              },
+              {
+                predicate: 'category',
+                object: {
+                  triple: { 
+                    subject: 'category',
+                    messages: [
+                      {
+                        predicate: 'name',
+                        object: { string: "Tech" }
+                      }
+                    ]
+                  } 
                 } 
-              } 
-            }
-          ]
+              }
+            ]
+          }
         }
       end
 
@@ -165,17 +168,53 @@ describe SWQL::Parser do
     context 'when query: article title: "Life" category: category name: "Tech" sub: "One"' do
       let(:query) { 'article title: "Life" category: category name: "Tech" sub: "One"' }
       let(:result) do
-        {
-          subject: 'article',
-          messages: [
-            {
-              predicate: 'title',
-              object: { string: "Life" }
-            },
-            {
-              predicate: 'category',
-              object: {
-                triple: { 
+        { triple: {
+            subject: 'article',
+            messages: [
+              {
+                predicate: 'title',
+                object: { string: "Life" }
+              },
+              {
+                predicate: 'category',
+                object: {
+                  triple: { 
+                      subject: 'category',
+                      messages: [
+                        {
+                          predicate: 'name',
+                          object: { string: "Tech" }
+                        },
+                        {
+                          predicate: 'sub',
+                          object: { string: "One" }
+                        }
+                      ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      end
+
+      it { expect(subject).to eq(result) }
+    end
+
+    context 'when query: article title: "Life" category: (category name: "Tech" sub: "One") subject: "Two"' do
+      let(:query) { 'article title: "Life" category: (category name: "Tech" sub: "One") test: "Two"' }
+      let(:result) do
+        { triple: {
+            subject: 'article',
+            messages: [
+              {
+                predicate: 'title',
+                object: { string: "Life" }
+              },
+              {
+                predicate: 'category',
+                object: {
+                  triple: { 
                     subject: 'category',
                     messages: [
                       {
@@ -187,49 +226,15 @@ describe SWQL::Parser do
                         object: { string: "One" }
                       }
                     ]
-                }
-              }
-            }
-          ]
-        }
-      end
-
-      it { expect(subject).to eq(result) }
-    end
-
-    context 'when query: article title: "Life" category: (category name: "Tech" sub: "One") subject: "Two"' do
-      let(:query) { 'article title: "Life" category: (category name: "Tech" sub: "One") test: "Two"' }
-      let(:result) do
-        {
-          subject: 'article',
-          messages: [
-            {
-              predicate: 'title',
-              object: { string: "Life" }
-            },
-            {
-              predicate: 'category',
-              object: {
-                triple: { 
-                  subject: 'category',
-                  messages: [
-                    {
-                      predicate: 'name',
-                      object: { string: "Tech" }
-                    },
-                    {
-                      predicate: 'sub',
-                      object: { string: "One" }
-                    }
-                  ]
+                  } 
                 } 
-              } 
-            },
-            {
-              predicate: 'test',
-              object: { string: "Two" }
-            }
-          ]
+              },
+              {
+                predicate: 'test',
+                object: { string: "Two" }
+              }
+            ]
+          }
         }
       end
 

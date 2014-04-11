@@ -13,4 +13,10 @@ class SWQL::Transformer < Parslet::Transform
     messages.each { |message| tree.merge!(message) }
     tree
   end
+
+  rule(triplet: subtree(:triplet)) do
+    type = triplet.delete(:subject)
+    attributes = { _type: type.classify }.merge(triplet)
+    Node.where(attributes).to_a
+  end
 end

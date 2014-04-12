@@ -14,7 +14,7 @@ class ParseQuery
   protected
 
   def xql_module
-    context[:xql_module] || XQL
+    context[:xql_module] || SWQL
   end
 
   def params

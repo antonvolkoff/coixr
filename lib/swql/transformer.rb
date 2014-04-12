@@ -1,4 +1,6 @@
 class SWQL::Transformer < Parslet::Transform
+  attr_reader :queries
+
   rule(string: simple(:s))  { String(s) }
   rule(integer: simple(:i)) { Integer(i) }
   rule(float: simple(:f))   { Float(f) }
@@ -16,7 +18,12 @@ class SWQL::Transformer < Parslet::Transform
 
   rule(triplet: subtree(:triplet)) do
     type = triplet.delete(:subject)
-    attributes = { _type: type.classify }.merge(triplet)
-    Node.where(attributes).to_a
+    attributes = { _type: String(type).classify }.merge(triplet)
+
+    # @queries = [] unless @queries
+    # @queries << attributes
+    Node.where(attributes)
+    
+    # "__:#{@queries.size}:__"
   end
 end

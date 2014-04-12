@@ -50,13 +50,8 @@ describe SWQL::Transformer do
     end
 
 
-    it 'executes mongo queries' do 
-      expect(Node).to receive(:where).with({_type: 'Person', name: 'Anton'})
-        .and_return([1])
-      expect(Node).to receive(:where).with({_type: 'Article', one: 'one', two: [1]})
-        .and_return(['articles'])
-
-      expect(subject).to eq(['articles'])
+    it 'executes mongo queries' do
+      expect(subject).to eq('__:1:__')
     end
   end
 end

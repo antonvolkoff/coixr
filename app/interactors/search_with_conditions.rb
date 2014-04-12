@@ -2,7 +2,7 @@ class SearchWithConditions
   include Interactor
 
   def perform
-    nodes = node_class.where(conditions).desc(:created_at).page(page_num)
+    nodes = conditions.desc(:created_at).page(page_num)
 
     context[:nodes] = NodesDecorator.decorate(nodes)
     if nodes.empty?

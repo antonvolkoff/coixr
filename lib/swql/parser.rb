@@ -31,7 +31,7 @@ class SWQL::Parser < Parslet::Parser
 
   rule(:message) do
     whitespace >> key.as(:predicate) >> str(':') >> whitespace >> 
-    (value | triplet).as(:object)
+    (value | triplet.as(:sub)).as(:object)
   end
 
   rule(:triplet) do
@@ -39,8 +39,10 @@ class SWQL::Parser < Parslet::Parser
       whitespace >> str('(').maybe >> whitespace >> 
       key.as(:subject) >> whitespace >> (message).repeat.as(:messages).maybe >>
       whitespace >> str(')').maybe >> whitespace
-    ).as(:triplet)
+    )
   end
 
-  root :triplet
+  rule(:query) { triplet.as(:root) }
+
+  root :query
 end

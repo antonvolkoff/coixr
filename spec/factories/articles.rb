@@ -2,5 +2,7 @@
 
 FactoryGirl.define do
   factory :article do
+    title 'Title'
+    url 'http://example.com'
   end
 end

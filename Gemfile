@@ -30,6 +30,7 @@ group :development, :test do
   gem 'pry'
   gem 'database_cleaner'
   gem 'fabrication'
+  gem 'capybara', '>= 2.2.0'
 end
 
 group :development do

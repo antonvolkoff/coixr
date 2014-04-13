@@ -42,10 +42,11 @@ describe SWQL::Transformer do
     end
 
     let(:tree) { {sub: { subject: 'category', :one => 'one', :two => 'two' }} }
-    it { expect(subject).to eq([{_id: '1'}, {_id: '2'}]) }
+    it { expect(subject).to eq(['1', '2']) }
   end
 
   describe 'root triplet' do
-    pending
+    let(:tree) { {root: { subject: 'article', title: 'good', category: ['two'] }} }
+    it { expect(subject).to eq({_type: 'Article', title: 'good', category: ['two']}) }
   end
 end

@@ -16,14 +16,21 @@ class SWQL::Transformer < Parslet::Transform
     tree
   end
 
-  rule(triplet: subtree(:triplet)) do
-    type = triplet.delete(:subject)
-    attributes = { _type: String(type).classify }.merge(triplet)
+  # rule(triplet: subtree(:triplet)) do
+  #   type = triplet.delete(:subject)
+  #   attributes = { _type: String(type).classify }.merge(triplet)
 
-    # @queries = [] unless @queries
-    # @queries << attributes
-    Node.where(attributes)
+  #   # @queries = [] unless @queries
+  #   # @queries << attributes
+  #   Node.where(attributes).to_a
     
-    # "__:#{@queries.size}:__"
+  #   # "__:#{@queries.size}:__"
+  # end
+
+  rule(sub: subtree(:sub)) do
+    type = sub.delete(:subject)
+    attributes = { _type: String(type).classify }.merge(sub)
+    
+    Node.where(attributes).to_a.map { |node| { _id: node.id } }
   end
 end

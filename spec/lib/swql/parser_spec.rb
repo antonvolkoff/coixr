@@ -71,8 +71,8 @@ describe SWQL::Parser do
     it { expect(subject).to parse('xkey: (some ykey: "A")') }
   end
 
-  describe 'rule triple' do
-    let(:rule) { :triple }
+  describe 'rule triplet' do
+    let(:rule) { :triplet }
 
     it { expect(subject).to parse('article') }
     it { expect(subject).to parse('article title: "My life" category_name: "Tech"') }
@@ -87,7 +87,7 @@ describe SWQL::Parser do
     context 'when query: article' do
       let(:query) { 'article' }
       let(:result) do
-        { triple: { subject: 'article', messages: [] } }
+        { root: { subject: 'article', messages: [] } }
       end
 
       it { expect(subject).to eq(result) }
@@ -96,7 +96,7 @@ describe SWQL::Parser do
     context 'when query: article title: "Life"' do
       let(:query) { 'article title: "Life"' }
       let(:result) do
-        { triple: {
+        { root: {
             subject: 'article', 
             messages: [
               { 
@@ -114,7 +114,7 @@ describe SWQL::Parser do
     context 'when query: article title: "Life" category_name: "Tech"' do
       let(:query) { 'article title: "Life" category_name: "Tech"' }
       let(:result) do
-        { triple: {
+        { root: {
             subject: 'article',
             messages: [
               {
@@ -136,7 +136,7 @@ describe SWQL::Parser do
     context 'when query: article title: "Life" category: category name: "Tech"' do
       let(:query) { 'article title: "Life" category: category name: "Tech"' }
       let(:result) do
-        { triple: {
+        { root: {
             subject: 'article',
             messages: [
               {
@@ -146,7 +146,7 @@ describe SWQL::Parser do
               {
                 predicate: 'category',
                 object: {
-                  triple: { 
+                  sub: { 
                     subject: 'category',
                     messages: [
                       {
@@ -168,7 +168,7 @@ describe SWQL::Parser do
     context 'when query: article title: "Life" category: category name: "Tech" sub: "One"' do
       let(:query) { 'article title: "Life" category: category name: "Tech" sub: "One"' }
       let(:result) do
-        { triple: {
+        { root: {
             subject: 'article',
             messages: [
               {
@@ -178,7 +178,7 @@ describe SWQL::Parser do
               {
                 predicate: 'category',
                 object: {
-                  triple: { 
+                  sub: { 
                       subject: 'category',
                       messages: [
                         {
@@ -204,7 +204,7 @@ describe SWQL::Parser do
     context 'when query: article title: "Life" category: (category name: "Tech" sub: "One") subject: "Two"' do
       let(:query) { 'article title: "Life" category: (category name: "Tech" sub: "One") test: "Two"' }
       let(:result) do
-        { triple: {
+        { root: {
             subject: 'article',
             messages: [
               {
@@ -214,7 +214,7 @@ describe SWQL::Parser do
               {
                 predicate: 'category',
                 object: {
-                  triple: { 
+                  sub: { 
                     subject: 'category',
                     messages: [
                       {

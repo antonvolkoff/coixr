@@ -33,30 +33,20 @@ describe SWQL::Transformer do
     it { expect(subject).to eq({subject: 'articles', one: 'one', two: 'two'})}
   end
 
-  describe 'triplet' do
-    let(:tree) do
-      {
-        triplet: {
-          subject: 'article', 
-          messages: [
-            {one: 'one'}, 
-            {two: { triplet: {
-                subject: 'person',
-                messages: [ {name: 'Anton'}]
-              }}}
-          ]
-        }
-      }
+  describe 'sub triplet' do
+    let(:objects) { [double('object1', id: '1'), double('object2', id: '2')] }
+    before do
+      allow(Node).to receive(:where)
+        .with(_type: 'Category', one: 'one', two: 'two')
+        .and_return(objects)
     end
 
+    let(:tree) { {sub: { subject: 'category', :one => 'one', :two => 'two' }} }
+    it { expect(subject).to eq(['1', '2']) }
+  end
 
-    it 'executes mongo queries' do 
-      expect(Node).to receive(:where).with({_type: 'Person', name: 'Anton'})
-        .and_return([1])
-      expect(Node).to receive(:where).with({_type: 'Article', one: 'one', two: [1]})
-        .and_return(['articles'])
-
-      expect(subject).to eq(['articles'])
-    end
+  describe 'root triplet' do
+    let(:tree) { {root: { subject: 'article', title: 'good', category: ['two'] }} }
+    it { expect(subject).to eq({_type: 'Article', title: 'good', category: ['two']}) }
   end
 end

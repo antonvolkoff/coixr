@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.3'
 
 gem 'sqlite3'
+gem 'thread_safe', '0.2.0'
 gem 'mongoid', github: 'mongoid/mongoid'
 gem 'bson_ext'
 gem 'puma'
